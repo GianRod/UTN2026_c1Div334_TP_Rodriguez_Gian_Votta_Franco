@@ -1,0 +1,40 @@
+<%- include('partials/header', { usuario }) %>
+
+<section class="dashboard">
+  <h2>Listado de productos</h2>
+
+  <% const categorias = [...new Set(productos.map(p => p.categoria))]; %>
+  <% categorias.forEach(cat => { %>
+    <h3 class="categoria-titulo"><%= cat %></h3>
+    <div class="productos-grid">
+      <% productos.filter(p => p.categoria === cat).forEach(p => { %>
+        <div class="producto-card <%= p.activo ? '' : 'inactivo' %>">
+          <% if (p.imagen) { %>
+            <img src="<%= p.imagen %>" alt="<%= p.nombre %>" />
+          <% } %>
+          <h4><%= p.nombre %></h4>
+          <p>$<%= p.precio %></p>
+          <p>Stock: <%= p.stock %></p>
+          <p>Estado: <strong><%= p.activo ? 'Activo' : 'Inactivo' %></strong></p>
+          <div class="acciones">
+            <a href="/admin/producto/editar/<%= p.id %>" class="btn btn-editar">Editar</a>
+            <form action="/admin/producto/toggle/<%= p.id %>" method="POST" onsubmit="return confirmarToggle('<%= p.activo %>')">
+              <button type="submit" class="btn <%= p.activo ? 'btn-desactivar' : 'btn-activar' %>">
+                <%= p.activo ? 'Desactivar' : 'Activar' %>
+              </button>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% }); %>
+</section>
+
+<script>
+  function confirmarToggle(activo) {
+    const accion = activo === 'true' ? 'desactivar' : 'activar';
+    return confirm(`¿Estás seguro de que querés ${accion} este producto?`);
+  }
+</script>
+
+<%- include('partials/footer') %>

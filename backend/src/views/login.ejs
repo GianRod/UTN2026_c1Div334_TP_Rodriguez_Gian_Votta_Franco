@@ -1,0 +1,30 @@
+<%- include('partials/header', { usuario: null }) %>
+
+<section class="login-container">
+  <h2>Iniciar sesión</h2>
+
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <form action="/admin/login" method="POST" class="login-form">
+    <label>Email
+      <input type="email" name="email" id="email" required />
+    </label>
+    <label>Contraseña
+      <input type="password" name="password" id="password" required />
+    </label>
+    <button type="submit">Ingresar</button>
+  </form>
+
+  <button type="button" class="btn-quick" onclick="quickLogin()">⚡ Acceso rápido (tester)</button>
+</section>
+
+<script>
+  function quickLogin() {
+    document.getElementById('email').value = 'admin@admin.com';
+    document.getElementById('password').value = 'admin123';
+  }
+</script>
+
+<%- include('partials/footer') %>

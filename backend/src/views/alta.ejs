@@ -1,0 +1,42 @@
+<%- include('partials/header', { usuario }) %>
+
+<section class="form-container">
+  <h2><%= producto ? 'Editar producto' : 'Agregar producto' %></h2>
+
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+
+  <form
+    action="<%= producto ? `/admin/producto/editar/${producto.id}` : '/admin/producto/alta' %>"
+    method="POST"
+    enctype="multipart/form-data"
+    class="producto-form"
+  >
+    <label>Nombre
+      <input type="text" name="nombre" value="<%= producto ? producto.nombre : '' %>" required />
+    </label>
+    <label>Precio
+      <input type="number" name="precio" step="0.01" min="0" value="<%= producto ? producto.precio : '' %>" required />
+    </label>
+    <label>Stock
+      <input type="number" name="stock" min="0" value="<%= producto ? producto.stock : 0 %>" />
+    </label>
+    <label>Categoría
+      <input type="text" name="categoria" value="<%= producto ? producto.categoria : '' %>" required />
+    </label>
+    <label>Imagen
+      <input type="file" name="imagen" accept="image/*" />
+      <% if (producto && producto.imagen) { %>
+        <img src="<%= producto.imagen %>" alt="imagen actual" style="max-width:120px;margin-top:8px;" />
+      <% } %>
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <%= producto ? 'Guardar cambios' : 'Agregar' %>
+      </button>
+      <a href="/admin/dashboard" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

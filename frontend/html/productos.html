@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productos — Autoservicio</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body data-page="productos">
+
+  <header class="app-header">
+    <div class="brand">
+      <img src="../assets/logo.png" alt="Logo" class="logo" onerror="this.style.display='none'" />
+      <span class="app-name">Autoservicio</span>
+    </div>
+    <nav class="main-nav">
+      <a href="bienvenida.html">Inicio</a>
+      <a href="productos.html" class="active">Productos</a>
+      <a href="carrito.html">Carrito <span id="nav-cart-count" class="badge">0</span></a>
+      <a href="http://localhost:3000/admin/login" class="nav-admin">Admin</a>
+    </nav>
+    <button id="btn-theme" class="btn-theme" title="Cambiar tema">🌙</button>
+  </header>
+
+  <main class="productos-main">
+    <h2>Nuestros productos</h2>
+
+    <div class="filtros">
+      <button class="btn-categoria active" data-cat="">Todos</button>
+      <span id="categorias-dinamicas"></span>
+    </div>
+
+    <div id="productos-grid" class="productos-grid">
+      <p class="loading">Cargando productos...</p>
+    </div>
+
+    <div class="paginacion" id="paginacion"></div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/carrito.js"></script>
+  <script src="../js/productos.js"></script>
+</body>
+</html>

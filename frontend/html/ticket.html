@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ticket — Autoservicio</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body data-page="ticket">
+
+  <header class="app-header">
+    <div class="brand">
+      <img src="../assets/logo.png" alt="Logo" class="logo" onerror="this.style.display='none'" />
+      <span class="app-name">Autoservicio</span>
+    </div>
+    <nav class="main-nav">
+      <a href="bienvenida.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="carrito.html">Carrito</a>
+      <a href="http://localhost:3000/admin/login" class="nav-admin">Admin</a>
+    </nav>
+  </header>
+
+  <main class="ticket-main">
+    <div id="ticket-container" class="ticket-container">
+      <div class="ticket-header">
+        <h2>🧾 Autoservicio</h2>
+        <p id="ticket-fecha" class="ticket-fecha"></p>
+      </div>
+      <p class="ticket-usuario">Cliente: <strong id="ticket-nombre"></strong></p>
+      <hr />
+      <ul id="ticket-items" class="ticket-items"></ul>
+      <hr />
+      <p class="ticket-total">Total: <strong id="ticket-total"></strong></p>
+      <p class="ticket-gracias">¡Gracias por tu compra!</p>
+    </div>
+
+    <div class="ticket-acciones">
+      <button id="btn-descargar-pdf" class="btn btn-secondary">📄 Descargar PDF</button>
+      <button id="btn-salir" class="btn btn-primary">Salir</button>
+    </div>
+  </main>
+
+  <script src="../js/ticket.js"></script>
+</body>
+</html>
