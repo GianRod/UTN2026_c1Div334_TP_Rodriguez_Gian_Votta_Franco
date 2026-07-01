@@ -56,22 +56,27 @@ function renderProductos(productos, grid) {
         <div class="acciones-card">
           <button class="qty-btn btn-restar" data-id="${p.id}">−</button>
           <span class="qty-display" id="qty-${p.id}">${qty}</span>
-          <button class="qty-btn btn-sumar" data-id="${p.id}">+</button>
-          <button class="btn btn-primary btn-agregar" data-id="${p.id}" data-nombre="${p.nombre}" data-precio="${p.precio}" data-imagen="${p.imagen || ''}">
-            Agregar
-          </button>
+          <button class="qty-btn btn-sumar" data-id="${p.id}" data-nombre="${p.nombre}" data-precio="${p.precio}" data-imagen="${p.imagen || ''}">+</button>
         </div>
       </div>`;
   }).join('');
 
-  grid.querySelectorAll('.btn-agregar').forEach(btn => {
-    btn.addEventListener('click', () => {
-      agregarAlCarrito({ id: Number(btn.dataset.id), nombre: btn.dataset.nombre, precio: Number(btn.dataset.precio), imagen: btn.dataset.imagen });
-      actualizarQtyDisplay(Number(btn.dataset.id));
-    });
-  });
   grid.querySelectorAll('.btn-sumar').forEach(btn => {
-    btn.addEventListener('click', () => { cambiarCantidad(Number(btn.dataset.id), 1); actualizarQtyDisplay(Number(btn.dataset.id)); });
+    btn.addEventListener('click', () => {
+      const id = Number(btn.dataset.id);
+      const nombre = btn.dataset.nombre;
+      const precio = Number(btn.dataset.precio);
+      const imagen = btn.dataset.imagen || '';
+      const carrito = obtenerCarrito();
+      const item = carrito.find(i => i.id === id);
+
+      if (item) {
+        cambiarCantidad(id, 1);
+      } else {
+        agregarAlCarrito({ id, nombre, precio, imagen });
+      }
+      actualizarQtyDisplay(id);
+    });
   });
   grid.querySelectorAll('.btn-restar').forEach(btn => {
     btn.addEventListener('click', () => { cambiarCantidad(Number(btn.dataset.id), -1); actualizarQtyDisplay(Number(btn.dataset.id)); });
