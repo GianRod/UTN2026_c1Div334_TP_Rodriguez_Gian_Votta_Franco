@@ -7,7 +7,7 @@ Venta.belongsToMany(Producto, { through: 'venta_productos' });
 Producto.belongsToMany(Venta, { through: 'venta_productos' });
 
 const syncDB = async () => {
-  await sequelize.sync({ alter: true });
+  await sequelize.sync();
   console.log('Base de datos sincronizada.');
 };
 
