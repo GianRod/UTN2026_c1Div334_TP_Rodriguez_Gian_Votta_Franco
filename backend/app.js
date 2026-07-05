@@ -27,6 +27,7 @@ app.use(session({
 
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use('/admin.css', express.static(path.join(__dirname, 'public/admin.css')));
+app.use('/menu-icon.png', express.static(path.join(__dirname, 'public/menu-icon.png')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
