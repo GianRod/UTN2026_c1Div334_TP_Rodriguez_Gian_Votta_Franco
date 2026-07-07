@@ -1,6 +1,6 @@
 const Producto = require("../models/Producto");
 
-async function seedProductos() {
+async function seedProducts() {
     const cantidad = await Producto.count();
 
     if (cantidad > 0) {
@@ -86,4 +86,4 @@ async function seedProductos() {
     console.log("Productos iniciales cargados.");
 }
 
-module.exports = seedProductos;
+module.exports = seedProducts;
