@@ -20,8 +20,12 @@
     <label>Stock
       <input type="number" name="stock" min="0" value="<%= producto ? producto.stock : 0 %>" />
     </label>
-    <label>Categoría
-      <input type="text" name="categoria" value="<%= producto ? producto.categoria : '' %>" required />
+    <label>Categoria
+      <select name="categoria" required>
+        <option value="">Seleccionar categoria</option>
+        <option value="Ropa" <%= producto && producto.categoria === 'Ropa' ? 'selected' : '' %>>Ropa</option>
+        <option value="Accesorio" <%= producto && producto.categoria === 'Accesorio' ? 'selected' : '' %>>Accesorio</option>
+      </select>
     </label>
     <label>Imagen
       <input type="file" name="imagen" accept="image/*" />

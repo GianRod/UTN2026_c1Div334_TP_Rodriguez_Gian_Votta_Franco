@@ -275,11 +275,13 @@ button[type="submit"].btn {
   font-size: 14px;
 }
 
-.producto-form input {
+.producto-form input,
+.producto-form select {
   padding: 8px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   font-size: 16px;
+  background-color: white;
 }
 
 .producto-form .checkbox-label {

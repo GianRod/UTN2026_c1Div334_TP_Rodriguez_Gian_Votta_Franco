@@ -206,6 +206,7 @@ main {
 .alumnos {
   font-size: 13px;
   color: #555555;
+  text-align: center;
 }
 
 .productos-main h2 {
@@ -237,7 +238,7 @@ main {
 
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   gap: 16px;
 }
 
@@ -249,7 +250,16 @@ main {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .producto-imagen-wrap {
@@ -332,7 +342,6 @@ main {
   flex: 1;
 }
 
-/* Paginacion */
 .paginacion {
   display: flex;
   justify-content: center;
@@ -636,9 +645,21 @@ hr {
   color: #000000;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 992px) {
   .productos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
   }
 
   .carrito-resumen {
@@ -654,4 +675,5 @@ hr {
     width: 100%;
     text-align: center;
   }
+}
 }

@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import { Producto, Usuario } from '../models/index.js';
 
+const CATEGORIAS_PRODUCTO = ['Ropa', 'Accesorio'];
+
 const mostrarDashboard = async (req, res) => {
   try {
     const productos = await Producto.findAll({ order: [['categoria', 'ASC'], ['nombre', 'ASC']] });
@@ -27,6 +29,14 @@ const mostrarEditar = async (req, res) => {
 const guardarProducto = async (req, res) => {
   try {
     const { nombre, precio, stock, categoria } = req.body;
+    if (!CATEGORIAS_PRODUCTO.includes(categoria)) {
+      return res.render('alta', {
+        producto: null,
+        error: 'Selecciona una categoria valida.',
+        usuario: req.session.usuario,
+      });
+    }
+
     const imagen = req.file ? `/uploads/${req.file.filename}` : null;
     await Producto.create({ nombre, precio, stock, categoria, imagen });
     res.redirect('/admin/dashboard');
@@ -40,6 +50,14 @@ const actualizarProducto = async (req, res) => {
     const producto = await Producto.findByPk(req.params.id);
     if (!producto) return res.redirect('/admin/dashboard');
     const { nombre, precio, stock, categoria } = req.body;
+    if (!CATEGORIAS_PRODUCTO.includes(categoria)) {
+      return res.render('alta', {
+        producto,
+        error: 'Selecciona una categoria valida.',
+        usuario: req.session.usuario,
+      });
+    }
+
     const imagen = req.file ? `/uploads/${req.file.filename}` : producto.imagen;
     await producto.update({ nombre, precio, stock, categoria, imagen });
     res.redirect('/admin/dashboard');
