@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import app from './app.js';
 import { syncDB } from './src/models/index.js';
 import Usuario from './src/models/Usuario.js';
-import { seedProductos } from "./src/infraestructura/seedProducts.js";
+import { seedProducts } from "./src/infraestructura/seedProducts.js";
 
 const PORT = process.env.PORT || 3000;
 
