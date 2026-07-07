@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import app from './app.js';
 import { syncDB } from './src/models/index.js';
 import Usuario from './src/models/Usuario.js';
-import { seedProductos } from "./src/infraestructura/seedProductos.js";
+import { seedProductos } from "./src/infraestructura/seedProducts.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,7 +31,7 @@ const crearUsuarioAdmin = async () => {
 
 syncDB().then(async () => {
   await crearUsuarioAdmin();
-  await seedProductos();
+  await seedProducts();
   app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
     console.log(`API: http://localhost:${PORT}/api/productos`);
