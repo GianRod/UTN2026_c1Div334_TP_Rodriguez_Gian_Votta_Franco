@@ -37,6 +37,10 @@ const obtenerPorId = async (req, res) => {
 const crear = async (req, res) => {
   try {
     const { nombre, precio, stock, categoria } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ error: 'La imagen del producto es obligatoria.' });
+    }
+
     const imagen = req.file ? `/uploads/${req.file.filename}` : null;
     const producto = await Producto.create({ nombre, precio, stock, categoria, imagen });
     res.status(201).json(producto);

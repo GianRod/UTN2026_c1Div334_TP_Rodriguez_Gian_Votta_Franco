@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — GianFrancoStore</title>
   <link rel="stylesheet" href="/admin.css" />
-  <link rel="icon" href="../../../public/favicon/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon" />
 </head>
 <body>
   <header class="admin-header">
-    <h1>🛒 GianFrancoStore — Panel Admin</h1>
+    <h1>🛒 GianFrancoStore — Admin</h1>
     <% if (typeof usuario !== 'undefined' && usuario) { %>
       <div class="admin-actions">
         <button id="menu-btn" class="menu-btn" type="button" aria-label="Menú">
-          <img src="/menu-icon.png" alt="Menú" />
+          <img src="/assets/menu-icon.png" alt="Menú" />
         </button>
 
         <nav class="admin-nav">
@@ -23,7 +23,9 @@
           <a href="/admin/ventas/excel">Descargar ventas</a>
         </nav>
 
-        <a href="/admin/logout" class="logout-link">Cerrar sesión</a>
+        <a href="/admin/logout" class="logout-link" title="Cerrar sesion" aria-label="Cerrar sesion">
+          <img src="/assets/logout.png" alt="Cerrar sesion" />
+        </a>
       </div>
       <script>
         document.addEventListener('DOMContentLoaded', () => {

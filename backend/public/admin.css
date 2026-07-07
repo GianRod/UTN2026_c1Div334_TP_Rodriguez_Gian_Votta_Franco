@@ -13,20 +13,28 @@ body {
 .admin-header {
   background-color: #1a1a2e;
   color: white;
-  padding: 12px 32px;
+  padding: 12px clamp(12px, 4vw, 32px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-wrap: nowrap;
+  gap: 12px;
   position: relative;
+}
+
+.admin-header h1 {
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: clamp(18px, 4.8vw, 32px);
+  line-height: 1.15;
 }
 
 .admin-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(8px, 2vw, 16px);
   justify-content: flex-end;
+  flex: 0 0 auto;
 }
 
 .admin-nav {
@@ -54,8 +62,32 @@ body {
 }
 
 .menu-btn img {
-  width: 32px;
-  height: 32px;
+  width: clamp(26px, 7vw, 32px);
+  height: clamp(26px, 7vw, 32px);
+}
+
+.logout-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(32px, 8vw, 36px);
+  height: clamp(32px, 8vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.logout-link:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.logout-link img {
+  width: clamp(18px, 5vw, 20px);
+  height: clamp(18px, 5vw, 20px);
+  object-fit: contain;
+  display: block;
 }
 
 @media (max-width: 1200px) {
@@ -67,7 +99,7 @@ body {
     display: none;
     position: absolute;
     top: 110%;
-    right: 32px;
+    right: clamp(12px, 4vw, 32px);
     background-color: #1a1a2e;
     flex-direction: column;
     padding: 16px;
@@ -85,6 +117,16 @@ body {
     display: block;
     margin-top: 6px;
     margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 420px) {
+  .admin-header {
+    gap: 8px;
+  }
+
+  .admin-header h1 {
+    font-size: clamp(16px, 6vw, 24px);
   }
 }
 
@@ -130,6 +172,12 @@ main {
   padding: 8px;
   border: 1px solid #cccccc;
   border-radius: 4px;
+  font-size: 16px;
+}
+
+.login-form .btn {
+  width: 100%;
+  padding: 10px;
   font-size: 16px;
 }
 

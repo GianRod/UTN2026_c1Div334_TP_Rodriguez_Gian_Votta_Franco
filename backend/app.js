@@ -26,6 +26,8 @@ app.use(session({
 }));
 
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
+app.use('/favicon', express.static(path.join(__dirname, 'public/favicon')));
 app.use('/admin.css', express.static(path.join(__dirname, 'public/admin.css')));
 app.use('/menu-icon.png', express.static(path.join(__dirname, 'public/menu-icon.png')));
 

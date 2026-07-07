@@ -37,6 +37,14 @@ const guardarProducto = async (req, res) => {
       });
     }
 
+    if (!req.file) {
+      return res.render('alta', {
+        producto: null,
+        error: 'La imagen del producto es obligatoria.',
+        usuario: req.session.usuario,
+      });
+    }
+
     const imagen = req.file ? `/uploads/${req.file.filename}` : null;
     await Producto.create({ nombre, precio, stock, categoria, imagen });
     res.redirect('/admin/dashboard');

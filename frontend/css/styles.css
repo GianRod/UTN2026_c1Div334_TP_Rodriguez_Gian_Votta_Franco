@@ -111,11 +111,13 @@ main {
 
 .btn {
   display: inline-block;
-  padding: 8px 18px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
   border: none;
+  text-decoration: none;
+  text-align: center;
 }
 
 .btn:hover {
@@ -156,6 +158,19 @@ main {
   color: #555555;
 }
 
+body[data-page="bienvenida"] {
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.55)
+    ),
+    url("../../frontend/assets/fondo-bienvenida.webp");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .bienvenida-main {
   display: flex;
   flex-direction: column;
@@ -166,7 +181,9 @@ main {
 }
 
 .bienvenida-card {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -676,4 +693,4 @@ hr {
     text-align: center;
   }
 }
-}
+
