@@ -9,6 +9,7 @@ body {
   background-color: #f4f4f4;
   color: #1a1a2e;
   min-height: 100vh;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 a {
@@ -38,6 +39,7 @@ main {
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 .brand {
@@ -95,6 +97,7 @@ main {
   padding: 4px 8px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
 .badge {
@@ -170,6 +173,7 @@ main {
   width: 100%;
   max-width: 420px;
   text-align: center;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .bienvenida-card h1 {
@@ -245,6 +249,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .producto-imagen-wrap {
@@ -254,6 +259,7 @@ main {
   background-color: #f7f7f7;
   border-radius: 6px;
   overflow: hidden;
+  transition: background-color 180ms ease;
 }
 
 .producto-card img {
@@ -280,6 +286,7 @@ main {
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 .producto-card h3 {
@@ -368,6 +375,7 @@ main {
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .carrito-item img {
@@ -421,6 +429,7 @@ main {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .carrito-acciones {
@@ -448,6 +457,7 @@ main {
   max-width: 360px;
   width: 90%;
   text-align: center;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 .modal-content h3 {
@@ -480,6 +490,7 @@ main {
   padding: 32px;
   max-width: 420px;
   width: 100%;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .ticket-header {
