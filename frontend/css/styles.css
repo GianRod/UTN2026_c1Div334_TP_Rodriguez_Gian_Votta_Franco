@@ -250,7 +250,9 @@ main {
 .producto-card img {
   width: 100%;
   height: 140px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f7f7f7;
   border-radius: 6px;
 }
 
@@ -345,7 +347,9 @@ main {
 .carrito-item img {
   width: 60px;
   height: 60px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f7f7f7;
   border-radius: 6px;
 }
 

@@ -282,6 +282,22 @@ button[type="submit"].btn {
   font-size: 16px;
 }
 
+.producto-form .checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.producto-form .checkbox-label input {
+  width: auto;
+}
+
+.form-help {
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .form-actions {
   display: flex;
   gap: 12px;

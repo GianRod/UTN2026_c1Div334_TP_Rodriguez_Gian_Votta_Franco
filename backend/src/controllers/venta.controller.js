@@ -1,25 +1,56 @@
-import { Venta, Producto } from '../models/index.js';
+import { sequelize, Venta, Producto, VentaProducto } from '../models/index.js';
 import ExcelJS from 'exceljs';
 
 const registrarVenta = async (req, res) => {
+  const transaction = await sequelize.transaction();
+
   try {
     const { nombre_usuario, productos } = req.body;
 
     let importe = 0;
-    productos.forEach(p => { importe += p.precio * p.cantidad; });
-
-    const venta = await Venta.create({ nombre_usuario, importe });
+    const itemsValidados = [];
 
     for (const item of productos) {
-      const producto = await Producto.findByPk(item.id);
-      if (producto) {
-        await venta.addProducto(producto, { through: { cantidad: item.cantidad } });
+      const producto = await Producto.findByPk(item.id, { transaction });
+      const cantidad = Number(item.cantidad);
+
+      if (!producto || !producto.activo) {
+        await transaction.rollback();
+        return res.status(404).json({ error: `Producto ${item.id} no disponible.` });
       }
+
+      if (producto.stock < cantidad) {
+        await transaction.rollback();
+        return res.status(400).json({ error: `Stock insuficiente para ${producto.nombre}.` });
+      }
+
+      importe += Number(producto.precio) * cantidad;
+      itemsValidados.push({ producto, cantidad });
     }
 
-    const ventaConProductos = await Venta.findByPk(venta.id, { include: Producto });
+    const venta = await Venta.create({ nombre_usuario, importe }, { transaction });
+
+    for (const item of itemsValidados) {
+      await VentaProducto.create({
+        VentaId: venta.id,
+        ProductoId: item.producto.id,
+        cantidad: item.cantidad,
+      }, { transaction });
+
+      await item.producto.decrement('stock', { by: item.cantidad, transaction });
+    }
+
+    await transaction.commit();
+
+    const ventaConProductos = await Venta.findByPk(venta.id, {
+      include: Producto,
+    });
+
     res.status(201).json(ventaConProductos);
   } catch (error) {
+    if (!transaction.finished) {
+      await transaction.rollback();
+    }
     res.status(500).json({ error: error.message });
   }
 };

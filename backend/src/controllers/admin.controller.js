@@ -1,4 +1,5 @@
-import { Producto } from '../models/index.js';
+import bcrypt from 'bcrypt';
+import { Producto, Usuario } from '../models/index.js';
 
 const mostrarDashboard = async (req, res) => {
   try {
@@ -57,4 +58,46 @@ const toggleActivo = async (req, res) => {
   }
 };
 
-export { mostrarDashboard, mostrarAlta, mostrarEditar, guardarProducto, actualizarProducto, toggleActivo };
+const mostrarAltaUsuario = (req, res) => {
+  res.render('altaUsuario', { error: null, usuario: req.session.usuario });
+};
+
+const guardarUsuario = async (req, res) => {
+  try {
+    const { nombre, email, password, es_admin } = req.body;
+
+    if (!nombre || !email || !password) {
+      return res.render('altaUsuario', {
+        error: 'Nombre, email y password son requeridos.',
+        usuario: req.session.usuario,
+      });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    await Usuario.create({
+      nombre,
+      email,
+      password: hash,
+      es_admin: es_admin === 'on' ? 1 : 0,
+    });
+
+    res.redirect('/admin/dashboard');
+  } catch (error) {
+    const mensaje = error.name === 'SequelizeUniqueConstraintError'
+      ? 'El email ya esta registrado.'
+      : 'Error al crear el usuario.';
+
+    res.render('altaUsuario', { error: mensaje, usuario: req.session.usuario });
+  }
+};
+
+export {
+  mostrarDashboard,
+  mostrarAlta,
+  mostrarEditar,
+  guardarProducto,
+  actualizarProducto,
+  toggleActivo,
+  mostrarAltaUsuario,
+  guardarUsuario,
+};

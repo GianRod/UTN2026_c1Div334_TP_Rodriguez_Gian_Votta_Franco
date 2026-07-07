@@ -47,16 +47,19 @@ function renderProductos(productos, grid) {
   grid.innerHTML = productos.map(p => {
     const enCarrito = carrito.find(i => i.id === p.id);
     const qty = enCarrito ? enCarrito.cantidad : 0;
+    const stockDisponible = Number(p.stock || 0);
+    const sinStock = stockDisponible <= 0 || qty >= stockDisponible;
     return `
       <div class="producto-card" data-id="${p.id}">
         ${p.imagen ? `<img src="http://localhost:3000${p.imagen}" alt="${p.nombre}" />` : ''}
         <h3>${p.nombre}</h3>
         <p class="precio">$${p.precio}</p>
         <p class="categoria">${p.categoria}</p>
+        <p class="stock">Stock: ${stockDisponible}</p>
         <div class="acciones-card">
           <button class="qty-btn btn-restar" data-id="${p.id}">−</button>
           <span class="qty-display" id="qty-${p.id}">${qty}</span>
-          <button class="qty-btn btn-sumar" data-id="${p.id}" data-nombre="${p.nombre}" data-precio="${p.precio}" data-imagen="${p.imagen || ''}">+</button>
+          <button class="qty-btn btn-sumar" data-id="${p.id}" data-nombre="${p.nombre}" data-precio="${p.precio}" data-imagen="${p.imagen || ''}" data-stock="${stockDisponible}" ${sinStock ? 'disabled' : ''}>+</button>
         </div>
       </div>`;
   }).join('');
@@ -67,13 +70,17 @@ function renderProductos(productos, grid) {
       const nombre = btn.dataset.nombre;
       const precio = Number(btn.dataset.precio);
       const imagen = btn.dataset.imagen || '';
+      const stock = Number(btn.dataset.stock || 0);
       const carrito = obtenerCarrito();
       const item = carrito.find(i => i.id === id);
+      const cantidadActual = item ? item.cantidad : 0;
+
+      if (cantidadActual >= stock) return actualizarQtyDisplay(id);
 
       if (item) {
         cambiarCantidad(id, 1);
       } else {
-        agregarAlCarrito({ id, nombre, precio, imagen });
+        agregarAlCarrito({ id, nombre, precio, imagen, stock });
       }
       actualizarQtyDisplay(id);
     });

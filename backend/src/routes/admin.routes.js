@@ -24,6 +24,8 @@ router.post('/producto/alta', upload.single('imagen'), ctrl.guardarProducto);
 router.get('/producto/editar/:id', ctrl.mostrarEditar);
 router.post('/producto/editar/:id', upload.single('imagen'), ctrl.actualizarProducto);
 router.post('/producto/toggle/:id', ctrl.toggleActivo);
+router.get('/usuario/alta', ctrl.mostrarAltaUsuario);
+router.post('/usuario/alta', ctrl.guardarUsuario);
 router.get('/ventas/excel', descargarExcel);
 
 export default router;

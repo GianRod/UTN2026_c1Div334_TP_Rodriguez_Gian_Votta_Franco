@@ -14,21 +14,26 @@ function renderCarrito() {
     return;
   }
 
-  lista.innerHTML = carrito.map(item => `
-    <div class="carrito-item" data-id="${item.id}">
-      ${item.imagen ? `<img src="http://localhost:3000${item.imagen}" alt="${item.nombre}" />` : ''}
-      <div class="carrito-item-info">
-        <h4>${item.nombre}</h4>
-        <span class="precio">$${(item.precio * item.cantidad).toFixed(2)}</span>
+  lista.innerHTML = carrito.map(item => {
+    const stockDisponible = Number(item.stock || 0);
+    const sinStock = stockDisponible <= 0 || item.cantidad >= stockDisponible;
+    return `
+      <div class="carrito-item" data-id="${item.id}">
+        ${item.imagen ? `<img src="http://localhost:3000${item.imagen}" alt="${item.nombre}" />` : ''}
+        <div class="carrito-item-info">
+          <h4>${item.nombre}</h4>
+          <span class="precio">$${(item.precio * item.cantidad).toFixed(2)}</span>
+          <span class="stock">Stock disponible: ${stockDisponible}</span>
+        </div>
+        <div class="carrito-item-controls">
+          <button class="qty-btn btn-restar" data-id="${item.id}">−</button>
+          <span class="qty-display">${item.cantidad}</span>
+          <button class="qty-btn btn-sumar" data-id="${item.id}" ${sinStock ? 'disabled' : ''}>+</button>
+        </div>
+        <button class="btn-eliminar" data-id="${item.id}" title="Eliminar">🗑</button>
       </div>
-      <div class="carrito-item-controls">
-        <button class="qty-btn btn-restar" data-id="${item.id}">−</button>
-        <span class="qty-display">${item.cantidad}</span>
-        <button class="qty-btn btn-sumar" data-id="${item.id}">+</button>
-      </div>
-      <button class="btn-eliminar" data-id="${item.id}" title="Eliminar">🗑</button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   document.getElementById('total-precio').textContent = `$${totalCarrito().toFixed(2)}`;
   resumen.style.display = 'flex';

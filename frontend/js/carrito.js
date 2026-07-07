@@ -14,23 +14,46 @@ function guardarCarrito(carrito) {
 function agregarAlCarrito(producto) {
   const carrito = obtenerCarrito();
   const existente = carrito.find(i => i.id === producto.id);
+  const stockDisponible = Number(producto.stock || 0);
+  const cantidadActual = existente ? existente.cantidad : 0;
+
+  if (cantidadActual >= stockDisponible) {
+    return false;
+  }
+
   if (existente) {
     existente.cantidad += 1;
   } else {
     carrito.push({ ...producto, cantidad: 1 });
   }
   guardarCarrito(carrito);
+  return true;
 }
 
 function cambiarCantidad(id, delta) {
   const carrito = obtenerCarrito();
   const item = carrito.find(i => i.id === id);
-  if (!item) return;
-  item.cantidad += delta;
+  if (!item) return false;
+
+  const nuevoTotal = item.cantidad + delta;
+  const stockDisponible = Number(item.stock || 0);
+
+  if (nuevoTotal < 0) {
+    return false;
+  }
+
+  if (stockDisponible > 0 && nuevoTotal > stockDisponible) {
+    item.cantidad = stockDisponible;
+  } else {
+    item.cantidad = nuevoTotal;
+  }
+
   if (item.cantidad <= 0) {
     return eliminarDelCarrito(id);
   }
+
   guardarCarrito(carrito);
+  return true;
 }
 
 function eliminarDelCarrito(id) {
