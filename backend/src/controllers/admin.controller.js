@@ -92,13 +92,6 @@ const guardarUsuario = async (req, res) => {
   try {
     const { nombre, email, password, es_admin } = req.body;
 
-    if (!nombre || !email || !password) {
-      return res.render('altaUsuario', {
-        error: 'Nombre, email y password son requeridos.',
-        usuario: req.session.usuario,
-      });
-    }
-
     const hash = await bcrypt.hash(password, 10);
     await Usuario.create({
       nombre,

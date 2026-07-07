@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import * as ctrl from '../controllers/admin.controller.js';
 import { descargarExcel } from '../controllers/venta.controller.js';
 import { requireAdmin } from '../middlewares/auth.middleware.js';
+import { validarUsuario } from '../middlewares/validation.middleware.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -25,7 +26,7 @@ router.get('/producto/editar/:id', ctrl.mostrarEditar);
 router.post('/producto/editar/:id', upload.single('imagen'), ctrl.actualizarProducto);
 router.post('/producto/toggle/:id', ctrl.toggleActivo);
 router.get('/usuario/alta', ctrl.mostrarAltaUsuario);
-router.post('/usuario/alta', ctrl.guardarUsuario);
+router.post('/usuario/alta', validarUsuario, ctrl.guardarUsuario);
 router.get('/ventas/excel', descargarExcel);
 
 export default router;

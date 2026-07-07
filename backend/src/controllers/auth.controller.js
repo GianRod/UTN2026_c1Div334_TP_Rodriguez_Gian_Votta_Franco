@@ -10,16 +10,16 @@ const procesarLogin = async (req, res) => {
   try {
     const usuario = await Usuario.findOne({ where: { email } });
     if (!usuario || !usuario.es_admin) {
-      return res.render('login', { error: 'Credenciales inválidas.' });
+      return res.status(401).render('login', { error: 'Credenciales inválidas.' });
     }
     const coincide = await bcrypt.compare(password, usuario.password);
     if (!coincide) {
-      return res.render('login', { error: 'Credenciales inválidas.' });
+      return res.status(401).render('login', { error: 'Credenciales inválidas.' });
     }
     req.session.usuario = { id: usuario.id, nombre: usuario.nombre, es_admin: usuario.es_admin };
     res.redirect('/admin/dashboard');
   } catch (error) {
-    res.render('login', { error: 'Error del servidor.' });
+    res.status(500).render('login', { error: 'Error del servidor.' });
   }
 };
 

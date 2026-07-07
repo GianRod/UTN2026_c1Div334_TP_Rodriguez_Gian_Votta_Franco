@@ -38,4 +38,33 @@ const validarVenta = (req, res, next) => {
   next();
 };
 
-export { validarProducto, validarVenta };
+const validarUsuario = (req, res, next) => {
+  const { nombre, email, password } = req.body;
+  const responderError = (mensaje) => {
+    if (req.originalUrl.startsWith('/admin/usuario')) {
+      return res.status(400).render('altaUsuario', {
+        error: mensaje,
+        usuario: req.session.usuario,
+      });
+    }
+
+    return res.status(400).json({ error: mensaje });
+  };
+
+  if (!nombre || !email || !password) {
+    return responderError('Nombre, email y password son requeridos.');
+  }
+
+  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailValido) {
+    return responderError('El email no tiene un formato valido.');
+  }
+
+  if (String(password).length < 6) {
+    return responderError('El password debe tener al menos 6 caracteres.');
+  }
+
+  next();
+};
+
+export { validarProducto, validarVenta, validarUsuario };
