@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrito — GianFrancoStore</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="icon" href="../../backend/public/favicon/favicon.ico" type="image/x-icon" />
+</head>
+<body data-page="carrito">
+
+  <header class="app-header">
+    <div class="brand">
+      <span class="app-name">GianFrancoStore</span>
+    </div>
+    <nav class="main-nav">
+      <a href="bienvenida.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="carrito.html" class="active">Carrito <span id="nav-cart-count" class="badge">0</span></a>
+      <a href="http://localhost:3000/admin/login" class="nav-admin">Admin</a>
+    </nav>
+    <button id="btn-theme" class="btn-theme" title="Cambiar tema">🌙</button>
+  </header>
+
+  <main class="carrito-main">
+    <h2>Tu carrito</h2>
+
+    <div id="carrito-lista" class="carrito-lista">
+      <p class="carrito-vacio">Tu carrito está vacío.</p>
+    </div>
+
+    <div class="carrito-resumen" id="carrito-resumen" style="display:none;">
+      <p>Total: <strong id="total-precio">$0</strong></p>
+      <div class="carrito-acciones">
+        <a href="productos.html" class="btn btn-secondary">← Seguir comprando</a>
+        <button id="btn-confirmar" class="btn btn-primary">Confirmar compra</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal confirmación -->
+  <div id="modal-confirmar" class="modal hidden">
+    <div class="modal-content">
+      <h3>¿Confirmar compra?</h3>
+      <p>Se registrará la compra a nombre de <strong id="modal-nombre"></strong>.</p>
+      <div class="modal-actions">
+        <button id="btn-modal-cancelar" class="btn btn-secondary">Cancelar</button>
+        <button id="btn-modal-ok" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="alumnos">Franco Votta / Gian Rodriguez— Programación III 2025</p>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/carrito.js"></script>
+  <script src="../js/carritoPage.js"></script>
+</body>
+</html>
