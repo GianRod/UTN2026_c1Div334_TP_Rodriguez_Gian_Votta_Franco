@@ -50,8 +50,11 @@ function renderProductos(productos, grid) {
     const stockDisponible = Number(p.stock || 0);
     const sinStock = stockDisponible <= 0 || qty >= stockDisponible;
     return `
-      <div class="producto-card" data-id="${p.id}">
-        ${p.imagen ? `<img src="http://localhost:3000${p.imagen}" alt="${p.nombre}" />` : ''}
+      <div class="producto-card${stockDisponible <= 0 ? ' sin-stock-card' : ''}" data-id="${p.id}">
+        <div class="producto-imagen-wrap">
+          ${p.imagen ? `<img src="http://localhost:3000${p.imagen}" alt="${p.nombre}" />` : ''}
+          ${stockDisponible <= 0 ? '<span class="stock-badge">Sin Stock</span>' : ''}
+        </div>
         <h3>${p.nombre}</h3>
         <p class="precio">$${p.precio}</p>
         <p class="categoria">${p.categoria}</p>

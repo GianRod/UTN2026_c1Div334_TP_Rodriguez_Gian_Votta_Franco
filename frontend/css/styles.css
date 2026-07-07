@@ -247,13 +247,39 @@ main {
   gap: 6px;
 }
 
-.producto-card img {
+.producto-imagen-wrap {
+  position: relative;
   width: 100%;
   height: 140px;
-  object-fit: contain;
-  object-position: center;
   background-color: #f7f7f7;
   border-radius: 6px;
+  overflow: hidden;
+}
+
+.producto-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.sin-stock-card img {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.stock-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .producto-card h3 {
@@ -512,6 +538,40 @@ hr {
   gap: 12px;
 }
 
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  body {
+    background-color: white;
+    margin: 0;
+  }
+
+  .app-header,
+  .ticket-acciones,
+  footer {
+    display: none !important;
+  }
+
+  main,
+  .ticket-main {
+    display: block;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ticket-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 24px auto;
+    box-shadow: none;
+    border: 1px solid #dddddd;
+    color: #1a1a2e;
+  }
+}
+
 [data-theme="dark"] body {
   background-color: #121212;
   color: #e0e0e0;
@@ -554,6 +614,15 @@ hr {
 [data-theme="dark"] .btn-secondary {
   background-color: #333333;
   color: #e0e0e0;
+}
+
+[data-theme="dark"] .producto-imagen-wrap {
+  background-color: #2a2a2a;
+}
+
+[data-theme="dark"] .stock-badge {
+  background-color: #ffffff;
+  color: #000000;
 }
 
 @media (max-width: 600px) {

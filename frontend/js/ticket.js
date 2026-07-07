@@ -23,7 +23,10 @@ document.getElementById('ticket-total').textContent = `$${total.toFixed(2)}`;
 
 // Descargar PDF usando print
 document.getElementById('btn-descargar-pdf').addEventListener('click', () => {
+  const tituloOriginal = document.title;
+  document.title = ' ';
   window.print();
+  document.title = tituloOriginal;
 });
 
 // Salir: limpiar sesión y volver al inicio
